@@ -9,20 +9,18 @@ public class Rec2D {
     public Vector2 Scale;
     public Vector2 Position;
     public Texture RecTexture;
-    public Vector2 Velocity;
     private Pixmap _pixelMap;
     private Color _recColor;
 
-    public Rec2D(Vector2 scale, Vector2 position, Vector2 velocity, Color _recColor) {
+    public Rec2D(Vector2 scale, Vector2 position, Color _recColor) {
         Scale = scale;
         Position = position;
-        Velocity = velocity;
         this._recColor = _recColor;
         generateTexture();
     }
 
     public void generateTexture () {
-        _pixelMap = new Pixmap(200, 100, Pixmap.Format.RGBA8888);
+        _pixelMap = new Pixmap((int) Scale.x, (int) Scale.y, Pixmap.Format.RGBA8888);
         _pixelMap.setColor(_recColor);
         for (int x = 0; x < _pixelMap.getWidth(); x++) {
             for (int y = 0; y < _pixelMap.getHeight(); y++) {
