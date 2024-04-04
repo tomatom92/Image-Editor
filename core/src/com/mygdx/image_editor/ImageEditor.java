@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class ImageEditor extends ApplicationAdapter {
@@ -14,6 +15,8 @@ public class ImageEditor extends ApplicationAdapter {
 	Rec2D button3;
 	Rec2D button4;
 	Rec2D button5;
+
+	Array<Rec2D> Rectangles = new Array<Rec2D>();
 
 	public Vector2 ScreenSize;
 
@@ -60,6 +63,14 @@ public class ImageEditor extends ApplicationAdapter {
 	public void render () {
 		ScreenUtils.clear(0f, 0f, 0f, 1);
 		batch.begin();
+
+		Rec2D rec;
+		for(int i = 0; i < Rectangles.size; i++) {
+			rec = Rectangles.get(i);
+			batch.draw(rec.RecTexture, rec.Position.x, rec.Position.y, rec.Scale.x, rec.Scale.y);
+		}
+
+		
 		batch.draw(button1.RecTexture, button1.Position.x, button1.Position.y);
 		batch.draw(button2.RecTexture, button2.Position.x, button2.Position.y);
 		batch.draw(button3.RecTexture, button3.Position.x, button3.Position.y);

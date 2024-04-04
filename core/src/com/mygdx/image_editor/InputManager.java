@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class InputManager implements InputProcessor {
     public Array<Button> Buttons = new Array<Button>();
+    private Button _hoveredButton;
     public static InputManager Instance;
 
     public InputManager () {
@@ -31,14 +32,19 @@ public class InputManager implements InputProcessor {
         Button collision = CollisionManager.Instance.getCollision(
                 new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
         if (collision != null) {
-            collision.onPressed();
+            collision.onClickDown();
         }
         return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
+        Button collision = CollisionManager.Instance.getCollision(
+            new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
+        if (collision != null) {
+            collision.onClickUp();
+        }
+    return true;
     }
 
     @Override
@@ -48,12 +54,25 @@ public class InputManager implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+        
+        mouseMoved(screenX, screenY);
         return false;
     }
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
+        Button collision = CollisionManager.Instance.getCollision(
+            new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
+            
+        if (collision != _hoveredButton && _hoveredButton != null) _hoveredButton.onHoverExit();
+        if(collision != null) collision.onHovered();
+
+        _hoveredButton = collision;
+
         return true;
+
+
+        
     }
 
     @Override
