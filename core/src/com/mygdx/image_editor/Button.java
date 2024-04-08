@@ -5,22 +5,18 @@ import com.badlogic.gdx.math.Vector2;
 
 
 
-public class Button extends Rec2D{
+public class Button extends Rec2D implements IClickable, IHoverable{
     private Color _startColor;
 
     public enum ButtonState {Clicked, Hovered, None}
     private ButtonState _currentState;
 
-    private static int _buttonCount;
-    private int _buttonNumber;
-
 
     public Button(Vector2 scale, Vector2 position, Color recColor) {
         super(scale, position, recColor);
         _startColor = recColor;
-        _buttonCount += 1;
-        _buttonNumber = _buttonCount;
-        InputManager.Instance.Buttons.add(this);
+        InputManager.Instance.hoverables.add(this);
+        InputManager.Instance.clickables.add(this);
         _currentState = ButtonState.None;
     }
 
@@ -29,7 +25,6 @@ public class Button extends Rec2D{
         if(_currentState == ButtonState.Clicked) return;
         _recColor = new Color(_startColor.r / 2f, _startColor.g / 2f , _startColor.b / 2f, 1);
         generateTexture();
-        System.out.println("You're hovering over " + _buttonNumber);
         _currentState = ButtonState.Hovered;
     }
     public void onHoverExit() {
@@ -37,15 +32,19 @@ public class Button extends Rec2D{
         _recColor = _startColor;
         generateTexture();
     }   
-    public void onClickUp(){
+    public void onClickUp(Vector2 mousePosition){
         _currentState = ButtonState.Hovered;
         _recColor = new Color(_startColor.r / 2f, _startColor.g / 2f , _startColor.b / 2f, 1);
         generateTexture();
     }
-    public void onClickDown(){
+    public void onClickDown(Vector2 mousePosition){
         _currentState = ButtonState.Clicked;
         _recColor = new Color(_startColor.r / 4f, _startColor.g / 4f , _startColor.b / 4f, 1);
         generateTexture();
     }
-    
+    @Override
+    public void onClickDragged(Vector2 mousePosition) {
+
+    }
+
 }

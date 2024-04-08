@@ -9,15 +9,26 @@ public class CollisionManager {
         Instance = this;
     }
 
-    public Button getCollision (Vector2 coordinates) {
-        //Check to see if we collided with _recOne
+    public IHoverable getHovered (Vector2 coordinates) {
+        Rec2D itrHoverable;
+        for(int i = 0; i < InputManager.Instance.hoverables.size; i++) {
+            itrHoverable = (Rec2D) InputManager.Instance.hoverables.get(i);
+            if(coordinates.x > itrHoverable.Position.x && coordinates.x < itrHoverable.Position.x + itrHoverable.Scale.x) {
+                if (coordinates.y > itrHoverable.Position.y && coordinates.y < itrHoverable.Position.y + itrHoverable.Scale.y) {
+                    return (IHoverable) itrHoverable;
+                }
+            }
+        }
+        return null;
+    }
 
-        Button iteratingButton;
-        for(int i = 0; i < InputManager.Instance.Buttons.size; i++) {
-            iteratingButton = InputManager.Instance.Buttons.get(i);
-            if(coordinates.x > iteratingButton.Position.x && coordinates.x < iteratingButton.Position.x + iteratingButton.Scale.x) {
-                if (coordinates.y > iteratingButton.Position.y && coordinates.y < iteratingButton.Position.y + iteratingButton.Scale.y) {
-                    return iteratingButton;
+    public IClickable getClicked (Vector2 coordinates) {
+        Rec2D itrClickable;
+        for(int i = 0; i < InputManager.Instance.clickables.size; i++) {
+            itrClickable = (Rec2D) InputManager.Instance.clickables.get(i);
+            if(coordinates.x > itrClickable.Position.x && coordinates.x < itrClickable.Position.x + itrClickable.Scale.x) {
+                if (coordinates.y > itrClickable.Position.y && coordinates.y < itrClickable.Position.y + itrClickable.Scale.y) {
+                    return (IClickable) itrClickable;
                 }
             }
         }
