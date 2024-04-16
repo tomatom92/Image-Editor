@@ -16,6 +16,9 @@ public class ImageInputOutput {
             System.out.println(filePath + " is NOT a bitmap image");
             return;
         }
+        byte[] fileSize = {bytes[2], bytes[3], bytes[4], bytes[5]};
+        System.out.println("The size of the file is " +
+        fileSize[0] + " " + fileSize[1] + " " + fileSize[2] + " " + fileSize[3]);
         //System.out.println("Loading file of size " + bytes.length);
     }
 }
