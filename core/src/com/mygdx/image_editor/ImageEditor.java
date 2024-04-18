@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.io.IOException;
+
 public class ImageEditor extends ApplicationAdapter {
 	SpriteBatch batch;
 
@@ -35,10 +37,8 @@ public class ImageEditor extends ApplicationAdapter {
 
 		Vector2 editWindowSize = new Vector2(500, ScreenSize.y - 40);
 		editWindow = new EditWindow(
-				editWindowSize, new Vector2(ScreenSize.x - editWindowSize.x, 0), Color.GRAY
+				editWindowSize, new Vector2(ScreenSize.x - editWindowSize.x, 0), new Texture(editMap)
 		);
-
-		editWindow.DoodleTexture = new Texture(editMap);
 
 		// temporary button for testing purposes
 		Button tempButton = new Button(
@@ -48,6 +48,7 @@ public class ImageEditor extends ApplicationAdapter {
 		);
 
 		CollisionManager collisionManager = new CollisionManager();
+
 	}
 
 	@Override
