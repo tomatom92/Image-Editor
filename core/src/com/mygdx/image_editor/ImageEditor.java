@@ -26,8 +26,6 @@ public class ImageEditor extends ApplicationAdapter {
 	public void create () {
 		//image loading code
 		new ImageInputOutput();
-		Pixmap editMap = ImageInputOutput.Instance.loadImage("blackBuck.bmp");
-		//end
 
 		Instance = this;
 		InputManager inputManager = new InputManager();
@@ -36,9 +34,7 @@ public class ImageEditor extends ApplicationAdapter {
 		ScreenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		Vector2 editWindowSize = new Vector2(500, ScreenSize.y - 40);
-		editWindow = new EditWindow(
-				editWindowSize, new Vector2(ScreenSize.x - editWindowSize.x, 0), new Texture(editMap)
-		);
+		editWindow = new EditWindow(editWindowSize, new Vector2(ScreenSize.x - editWindowSize.x, 0));
 
 		// temporary button for testing purposes
 		Button tempButton = new Button(
@@ -64,6 +60,12 @@ public class ImageEditor extends ApplicationAdapter {
 		batch.draw(editWindow.DoodleTexture, editWindow.Position.x, editWindow.Position.y, editWindow.Scale.x,
 				editWindow.Scale.y);
 		batch.end();
+	}
+
+	public void filesImported (String[] filePaths) {
+		Pixmap map = ImageInputOutput.Instance.loadImage(filePaths[0]);
+		if (map == null) return;
+		editWindow.RecTexture = new Texture(map);
 	}
 	
 	@Override

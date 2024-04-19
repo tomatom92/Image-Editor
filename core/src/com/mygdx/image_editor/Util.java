@@ -39,6 +39,16 @@ public class Util {
 
     public static Pixmap scalePixmap(Pixmap map, Vector2 desiredSize) {
         Pixmap newMap = new Pixmap((int) desiredSize.x, (int) desiredSize.y, Pixmap.Format.RGBA8888);
+        for(int targetX = 0; targetX < newMap.getWidth(); targetX ++) {
+            for(int targetY = 0; targetY < newMap.getHeight(); targetY ++) {
+                int sourceX = (int) (targetX / desiredSize.x * map.getWidth());
+                int sourceY = (int) (targetY / desiredSize.y * map.getHeight());
+
+                newMap.setColor(map.getPixel(sourceX, sourceY));
+                newMap.drawPixel(targetX, targetY);
+            }
+        }
+
         return newMap;
     }
 }

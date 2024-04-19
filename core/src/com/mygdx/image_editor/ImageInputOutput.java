@@ -2,6 +2,7 @@ package com.mygdx.image_editor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.math.Vector2;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -73,7 +74,10 @@ public class ImageInputOutput {
             }
         }
 
-        Pixmap doodle = EditWindow.Instance.DoodleMap;
+        Pixmap doodle = Util.scalePixmap(
+                EditWindow.Instance.DoodleMap, new Vector2(_pixels.getWidth(), _pixels.getHeight())
+        );
+
         colorIndex = 0;
         for(int y = doodle.getHeight() - 1; y >= 0; y--) {
             for(int x = 0; x < doodle.getWidth(); x++) {
