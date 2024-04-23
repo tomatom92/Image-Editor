@@ -1,9 +1,10 @@
-package com.mygdx.image_editor;
+package com.mygdx.utility;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.image_editor.ImageEditor;
 
 import java.io.IOException;
 
@@ -57,7 +58,7 @@ public class InputManager implements InputProcessor {
 
         if (collision != _currentlyHovered && _currentlyHovered != null) _currentlyHovered.onHoverExit();
         if(collision != null) collision.onHovered();
-
+        if(collision != _currentlyHovered) _currentlyClicked = null;
         _currentlyHovered = collision;
 
         return true;
@@ -65,10 +66,11 @@ public class InputManager implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-
+        if(ImageInputOutput.Instance.imageFolderLocation == null){return false;};
         if(_controlPressed && keycode == Keys.S)
             try {
-                ImageInputOutput.Instance.saveImage("C:\\Users\\ethan\\OneDrive\\Desktop\\output.bmp");
+            	System.out.println();
+                ImageInputOutput.Instance.saveImage(ImageInputOutput.Instance.imageFolderLocation + "\\output.bmp");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -1,14 +1,18 @@
-package com.mygdx.image_editor;
+package com.mygdx.utility;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.image_editor.EditWindow;
+import com.mygdx.image_editor.Util;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class ImageInputOutput {
+    public static String imageFolderLocation;
+
     public static ImageInputOutput Instance;
     public ImageInputOutput() {
         Instance = this;
@@ -17,6 +21,7 @@ public class ImageInputOutput {
     private Pixmap _pixels;
 
     public Pixmap loadImage(String filePath) {
+        imageFolderLocation = scrapeFolderLocation(filePath);
         byte[] ogBytes = Gdx.files.internal(filePath).readBytes();
         int[] bytes = Util.unsignBytes(ogBytes);
         if(bytes[0] != 'B' || bytes[1] != 'M') {
@@ -95,5 +100,14 @@ public class ImageInputOutput {
 
         output.close();
     }
+    //takes filepath and will chop off the file name at the end giving the folder location.
+    private String scrapeFolderLocation(String filePath) {
+        StringBuilder builder = new StringBuilder(filePath);
+        for(int i = filePath.length() - 1; i >= 0; i--) {
+        if(filePath.charAt(i) != '\\') continue;
+        return builder.substring(0,i);
+}
+        return null;
+        }
 }
     
