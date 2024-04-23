@@ -12,32 +12,30 @@ public class Outline{
 	public Outline(Vector2 recSize, Color black, int thickness) {
 		Pixmap map = new Pixmap((int) recSize.x, (int) recSize.y, Format.RGBA8888);
 		map.setColor(Color.BLACK);
+		for(int x = 0; x < map.getWidth(); x++) {
+			for(int y = 0; y < thickness; y++) {
+				map.drawPixel(x, y);
+			}
+		}
+		//right
+		for(int x = map.getWidth()-thickness; x < map.getWidth(); x++) {
+			for(int y = 0; y < map.getHeight(); y++) {
+				map.drawPixel(x, y);
+			}
+		}
+		//bottom
+		for(int x = 0; x < map.getWidth(); x++) {
+			for(int y = map.getHeight()-thickness; y < map.getHeight(); y++) {
+				map.drawPixel(x, y);
+			}
+		}
+		//left
+		for(int x = 0; x < thickness; x++) {
+			for(int y = 0; y < map.getHeight(); y++) {
+				map.drawPixel(x, y);
+			}
+		}
 		OutlineTex = new Texture(map);
-		//UNFINISHED, i typed out all the loops and put the code he put in but its not drawing the outlines
-		//Top
-		for(int x = 0; x < map.getWidth(); x++) {
-			for(int y = 0; y < thickness; y++) {
-				map.drawPixel(x, y);
-			}
-		}
-		//Bottom
-			for(int x = 0; x < map.getWidth(); x++) {
-				for(int y = 0; y < thickness; y++) {
-					map.drawPixel(x, y);
-				}
-			}
-		//Right
-		for(int x = 0; x < map.getWidth(); x++) {
-			for(int y = 0; y < thickness; y++) {
-				map.drawPixel(x, y);
-			}
-		}
-		//Left
-			for(int x = 0; x < map.getWidth(); x++) {
-				for(int y = 0; y < thickness; y++) {
-					map.drawPixel(x, y);
-				}
-			}	
 	}
 	
 }
